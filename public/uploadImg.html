@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>上传图片</title>
+    <style>
+        #drag_box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid orange;
+            background: #ccc;
+            cursor: pointer;
+        }
+
+        #box {
+            width: 700px;
+            height: 400px;
+            background: #eee;
+            margin: 10px auto;
+            padding-top: 1px;
+            position: relative;
+        }
+
+        .over {
+            border: 2px dashed #ccc;
+            transform: scale(0.9, 0.9);
+        }
+
+        li {
+            cursor: pointer;
+        }
+
+        #progress {
+            display: block;
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+        #tips {
+            width: 300px;
+            line-height: 30px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            margin-left: -150px;
+            text-align: center;
+            font-family: "微软雅黑";
+            font-size: 15px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        #showImgBox {
+            width: 100%;
+            min-height: 200px;
+            background: #eee;
+            margin: 10px 0px;
+            padding-top: 1px;
+        }
+
+        #showImgBox:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        .showImgBox-imgBox {
+            position: relative;
+            margin: 5px;
+            float: left;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .showImgBox-imgBox:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        .showImgBox-imgBox img {
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .showImgBox-img-copy {
+            position: absolute;
+            line-height: 30px;
+            right: 0;
+            top: 0;
+            font-family: "微软雅黑";
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+            background: #000;
+            padding: 0 5px;
+            box-sizing: border-box;
+        }
+
+        .showImgBox-img-copy div {
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>请将图片拖至框中完成上传</h3>
+    <div id="box" name="box">
+        <!-- 提示框 -->
+        <div id="tips" class="hide"></div>
+    </div>
+    <h3>上传成功的图片</h3>
+    <div id="showImgBox"></div>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script> 
+        // tips框出现
+        function showTips(msg) {
+            var tips = document.querySelector("#tips")
+            tips.innerHTML = msg
+            tips.classList.remove("hide")
+            tips.classList.add("show")
+            setTimeout(() => {
+                tips.innerHTML = ""
+                tips.classList.remove("show")
+                tips.classList.add("hide")
+            }, 2000);
+        }
+        var token = ""
+        var upload_uri = ""
+        $.ajax({
+            url: "/api/upload/upload/uploadInfo",
+            success: (data, status) => {
+                if (data.code == 401) {
+                    showTips("请先登录")
+                } else {
+                    token = data.data.token
+                    upload_uri = data.data.upload_uri
+                }
+            },
+            error: (data, status) => {
+                showTips(data.msg)
+            }
+        })
+        //获取目标元素
+        var box = document.querySelector("#box");
+        //给目标元素绑定事件
+        box.addEventListener("dragenter", function () {
+            this.classList.add('over');
+        }, false);
+        box.addEventListener("dragleave", function () {
+            this.classList.remove("over");
+        }, false);
+        box.addEventListener("dragover", function (e) {
+            e.preventDefault();  //阻止默认的动作
+        }, false);
+        function upload(fileList) {
+            var flag = true
+            if (fileList.find((itemFile) => { return itemFile.type.indexOf("image/") != -1 })) {
+                var progress = document.createElement("progress");
+                progress.id = "progress"
+                progress.value = 0
+                document.querySelector("#box").appendChild(progress);
+                fileList.filter((itemFile) => { return itemFile.type.indexOf("image/") != -1 }).forEach((itemFile) => {
+                    var formData = new window.FormData();
+                    formData.append("qq_file", itemFile);
+                    formData.append("token", token);
+                    var xhrOnProgress = function (fun) {
+                        xhrOnProgress.onprogress = fun; //绑定监听
+                        //使用闭包实现监听绑
+                        return function () {
+                            //通过$.ajaxSettings.xhr();获得XMLHttpRequest对象
+                            var xhr = $.ajaxSettings.xhr();
+                            //判断监听函数是否为函数
+                            if (typeof xhrOnProgress.onprogress !== 'function')
+                                return xhr;
+                            //如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去
+                            if (xhrOnProgress.onprogress && xhr.upload) {
+                                xhr.upload.onprogress = xhrOnProgress.onprogress;
+                            }
+                            return xhr;
+                        }
+                    }
+                    $.ajax({
+                        url: upload_uri,
+                        type: "POST",
+                        cache: false,
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        xhr: xhrOnProgress(function (e) {
+                            progress.max = e.total
+                            progress.value = e.loaded
+                        }),
+                        success: (res) => {
+                            if (flag) {
+                                document.querySelector("#box").removeChild(progress);
+                            }
+                            flag = false
+                            //读取文件
+                            readImage(itemFile, res.data.url);
+                        },
+                        error: (res) => {
+                            if (flag) {
+                                document.querySelector("#box").removeChild(progress);
+                            }
+                            flag = false
+                            var msg = res.msg ? res.msg : "请先登录"
+                            showTips(msg)
+                        }
+                    })
+                })
+                var inconformityStr = ""
+                fileList.filter((itemFile) => { return itemFile.type.indexOf("image/") == -1 }).forEach((itemFile) => {
+                    inconformityStr += `"${itemFile.name}"`
+                })
+                if (inconformityStr != "") {
+                    showTips(`只支持图片上传，${inconformityStr}不符合格式要求`)
+                }
+            } else {
+                showTips("只支持图片上传")
+            }
+            this.classList.remove("over");  //恢复样式
+        }
+        // 粘贴上传
+        box.addEventListener("paste", function (e) {
+            e.preventDefault(); //阻止浏览器默认行为
+            var fileList = Object.values(e.clipboardData.files)
+            upload.call(this, fileList)
+        })
+        box.addEventListener("drop", function (e) {
+            e.preventDefault(); //阻止浏览器默认行为
+            //遍历FileList
+            var fileList = Object.values(e.dataTransfer.files)
+            upload.call(this, fileList)
+        }, false);
+        /**
+         * 读取图片
+         * @param File  fileObj 
+        */
+        function readImage(fileObj, url) {
+            //创建FileReader对象
+            var frObj = new FileReader();
+            //监听读取成功
+            frObj.onload = function () {
+                var imgBox = document.createElement("div")
+                imgBox.className = "showImgBox-imgBox"
+                var img = document.createElement("img");
+                img.className = "showImgBox-img"
+                img.src = url;
+                imgBox.appendChild(img);
+                var div = document.createElement("div")
+                div.className = "showImgBox-img-copy"
+                div.addEventListener("click", function (e) {
+                    copyUrl2(e.target)
+                })
+                div.innerHTML = "复制链接"
+                var urlContainer = document.createElement("div")
+                urlContainer.innerText = url
+                div.appendChild(urlContainer)
+                imgBox.appendChild(div);
+                document.querySelector("#showImgBox").appendChild(imgBox);
+            }
+            //读取
+            frObj.readAsDataURL(fileObj);
+        }
+        function copyUrl2(obj) {
+            const range = document.createRange();
+            range.selectNode(obj);
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy');
+            showTips("复制成功！");
+        }
+    </script>
+</body>
+
+</html>

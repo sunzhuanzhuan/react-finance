@@ -1,0 +1,26 @@
+.fields-checkbox-group-container {
+  border-bottom: 1px solid #ddd;
+  .group-head-title {
+    padding: 16px 24px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    h4 {
+      font-size: 14px;
+      line-height: 24px;
+      margin: 0;
+    }
+  }
+  .group-content-list {
+    display: none;
+    transition: all .2s;
+    &.show {display: block}
+    padding: 0 24px;
+    .ant-checkbox-wrapper {
+      margin: 0 8px 8px 0;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

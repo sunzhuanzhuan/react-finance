@@ -1,0 +1,202 @@
+@import "../../indexNbTheme.less";
+.fieldset_css {
+    border: 1px solid @primary-color;
+    border-radius: 6px;
+    padding: 10px;
+    legend {
+        color: @primary-color;
+        background-color: #fff;
+        width: auto;
+        padding: 0 10px;
+        margin-bottom: 0;
+    }
+}
+.red-font{
+    color:red;
+}
+.left-gap{
+    margin-left: 20px;
+}
+.top-gap{
+    margin-top: 20px;
+}
+/* 任务列表新建弹窗 */
+.sale-new-modal,.complete-modal{
+    .new-modal-wrap{
+        margin-left: 60px;
+    }
+    .ant-row-flex{
+        height:52px;
+    }
+    .wrap-control{
+        width: 294px;
+    }
+    .ant-form-item-label label{
+        float: left;
+    }
+    .ant-form-item-control-wrapper{
+        float: right;
+    }
+    .personal-parent .ant-form-explain{
+        margin-top: -16px;
+    }
+    .personal-multiple-select{
+        height: 34px;
+        margin-top: 4px;
+        overflow: hidden;
+        overflow-y: auto;
+    }
+    .ant-form-explain{
+        white-space: nowrap !important;
+    }
+}
+.mission-list-query{
+    .select-right{
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+    }
+}
+.check-flag{
+    .ant-select-disabled .ant-select-selection{
+        background: #fff;
+    }
+    .ant-select-disabled{
+        color:#000;
+    }
+    .ant-input-disabled{
+        background: #fff;
+        color:#000;
+    }
+}
+.complete-modal{
+    .section-row{
+        margin-left: 20px;
+        margin-bottom: 0px !important;
+        .ant-row-flex{
+            height:32px;
+        }
+    }
+    .title-row{
+        margin-left: 12px;
+        height: 32px;
+    }
+    .new-modal-icon{
+        margin-left: 10px;
+        vertical-align: middle;
+        font-size: 20px;
+        line-height: 40px;
+        cursor: pointer;
+    }
+    .new-modal-icon:hover{
+        color:@primary-color;
+    }
+    .formitem-left{
+        margin-left: 20px;
+    }
+    .value-input-item{
+        margin-left: 32px;
+    }
+    .value-input-style{
+        width:100px;
+        vertical-align: middle;
+        .ant-select-selection{
+            color:rgba(0, 0, 0, 0.65);
+            background-color: #fafafa;
+        }
+    }
+    .col-left{
+        line-height: 26px;
+    }
+    .col-left:nth-child(2){
+        margin-left:102px;
+    }
+    .col-left:nth-child(3){
+        margin-left:192px;
+    }
+    .col-left:nth-child(4){
+        margin-left:134px;
+    }
+    .col-left:nth-child(5){
+        margin-left:76px;
+    }
+    .default-row{
+        margin-left: 20px;
+    }
+}
+.modal-warp{
+    width: 1000px !important;
+}
+/* 任务导入 */
+.sale-mission-input{
+    .sale-steps-container{
+        width: 70%;
+        transform: translateX(15%);
+    }
+    .sale-input-tip{
+        text-align: center;
+        font-size: 14px;
+        padding: 10px;
+    }
+    .ant-upload-list{
+        margin-left: 50%;
+        transform: translate(-50%);
+        .anticon{
+            font-size: 20px;
+        }
+    }
+    .ant-upload-list .ant-upload-list-item .anticon-close{
+        font-size: 0px;
+    }
+}
+
+.sale-mission-output{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-70%,-50%);
+    .output-label{
+        display: inline-block;
+        width: 212px;
+        text-align: right;
+    }
+}
+.accounting-dialog-list .ant-modal-content {
+    .ant-table-scroll {
+        .ant-table-header {
+            overflow-y: hidden;
+        }
+    }
+}
+.bussiness-accounting-list{
+    .tip-message{
+        margin-left: 94px;
+      & p{
+          margin-bottom: 4px;
+          line-height: 20px;
+      }
+    }
+    .thum-img-box{
+            width:56px;
+            height: 56px;
+            padding:6px;
+            border-radius: 2px;
+            box-shadow: 0px 1px 2px #333333;
+            cursor: pointer;
+            overflow: hidden;
+            float: left;
+            margin: 6px;
+            img{
+                width: 100%;
+                height: 100%;
+                vertical-align: top;  
+            }
+    }
+    .accounting-stat{
+        line-height: 24px;
+        margin-left: 27px;
+        color:#000;
+        padding-bottom: 10px;
+    }
+}
+

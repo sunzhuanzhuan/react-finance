@@ -1,0 +1,217 @@
+@import "../../../indexNbTheme";
+.edit-template-keys-model {
+    .ant-modal-confirm-body .ant-modal-confirm-content {
+        margin-top: 0px;
+    }
+}
+
+.edit-template-keys-wrapper {
+    position: relative;
+    display: flex;
+    flex: auto;
+    border: 1px solid #ddd;
+    background: transparent;
+    .auto-save-display {
+        position: absolute;
+        right: 0;
+        top: -40px;
+    }
+    .template-keys-container-left {
+        flex: 6.8;
+        overflow-y: auto;
+        .ant-tabs {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            .ant-tabs-bar {
+                margin: 0;
+                padding: 0 32px;
+                .ant-tabs-tab {
+                    font-size: 15px;
+                }
+            }
+            .ant-tabs-content {
+                overflow-y: auto;
+                flex: auto;
+                height: 100%;
+                .ant-tabs-tabpane {
+                    height: 100%;
+                }
+            }
+        }
+    }
+    .template-keys-container-right {
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        flex: 3.2;
+        background: #f6f6f6;
+        border-left: 1px solid #ddd;
+        .selected-head {
+            font-size: 14px;
+            padding: 0 16px;
+            .selected-head-title {
+                display: flex;
+                color: #9b9b9b;
+                justify-content: space-between;
+                height: 46px;
+                line-height: 46px;
+                text-align: inherit;
+            }
+            .selected-head-template-info {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 7px;
+                color: #333;
+                height: 40px;
+                p {
+                    width: 49%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+        .ant-tabs.ant-tabs-card>.ant-tabs-bar .ant-tabs-nav-container {
+            height: 32px;
+            overflow: hidden;
+        }
+        .ant-tabs {
+            flex: auto;
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            .ant-tabs-bar {
+                padding: 3px 10px 0;
+                background: #eee;
+                .ant-tabs-tab,
+                .ant-tabs-tab-arrow-show {
+                    padding: 0 8px;
+                    line-height: 32px;
+                    background: #eee;
+                    border-color: transparent;
+                }
+                .ant-tabs-tab-active {
+                    background: #fafafa;
+                    border-color: #e8e8e8;
+                }
+                margin: 0;
+            }
+            .ant-tabs-content {
+                overflow-y: auto;
+                flex: auto;
+                height: 100%;
+            }
+            .ant-tabs-tabpane {
+                height: 100%;
+            }
+        }
+        .selected-footer {
+            margin: 6px 0;
+            font-size: 12px;
+            padding: 0 10px;
+            color: #9b9b9b;
+        }
+    }
+    .all-fields-select-area-container,
+    .fields-selected-area-container {
+        .head-search-fields {
+            display: flex;
+            .search-input {
+                border-radius: 2px;
+                width: 240px;
+            }
+            input {
+                border-radius: 2px
+            }
+        }
+    } // 全部字段选择区域
+    .all-fields-select-area-container {
+        .head-search-fields {
+            padding: 16px 24px 0;
+            .search-desc {
+                margin-left: 20px;
+                line-height: 32px;
+                margin-bottom: 0;
+                b {
+                    color: @primary-color;
+                    margin: 0 6px;
+                    font-weight: bold;
+                }
+            }
+        }
+        .content-fields-list {
+            .ant-checkbox-group {
+                display: block;
+            }
+        }
+    } // 已选择字段区域
+    .fields-selected-area-container {
+        height: 100%;
+        .head-search-fields {
+            padding: 16px 10px;
+        }
+        .content-fields-list {
+            max-height: calc(100% - 66px);
+            overflow-y: auto;
+            .selected-fields-item {
+                cursor: move;
+                min-height: 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 14px;
+                color: #666666;
+                padding: 0 10px;
+                transition: all .2s;
+                &:hover {
+                    background: #eee;
+                    .anticon-pause {
+                        color: #555;
+                    }
+                    .view-item {
+                        .actions {
+                            display: block
+                        }
+                    }
+                }
+                .ant-form-item {
+                    margin-bottom: 0;
+                    .ant-form-item-control.has-error {
+                        .ant-form-explain {
+                            font-size: 12px;
+                        }
+                    }
+                }
+                .item-content {
+                    display: flex;
+                    align-items: center;
+                    flex: auto;
+                }
+                .view-item {
+                    .actions {
+                        display: none
+                    }
+                }
+                .anticon {
+                    color: #AAAAAA;
+                    width: 40px;
+                    height: 40px;
+                    text-align: center;
+                    line-height: 46px;
+                    cursor: pointer;
+                    transition: all .2s;
+                }
+                .anticon-pause {
+                    cursor: move;
+                    transform: rotate(90deg);
+                }
+                .anticon-close {
+                    &:hover {
+                        color: #555;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,98 @@
+//@import "~antd/";
+@primary-color: #1890ff;
+@menu-collapsed-width: 40px;
+// @body-background        : #fff;
+@table-padding-vertical: 8px;
+@table-padding-horizontal: 8px;
+//@input-height-base: 28px;
+//@btn-height-base: 28px;
+//@btn-height-sm: 28px;
+@font-size-base: 13px;
+//@form-item
+@form-item-margin-bottom: 8px;
+//@table-header-bg: #2f54eb;
+@table-row-hover-bg: fade(#aaa, 5%);
+.ant-table-fixed-left .ant-table-body-inner {
+    padding-right: 0;
+}
+
+.ta-r {
+    text-align: right;
+}
+
+//顶部用户名
+.user-name {
+    position: absolute;
+    top: 0px;
+    right: 185px;
+    color: #eee;
+    font-size: 15px;
+}
+
+//老平台
+.old-platform {
+    position: absolute;
+    top: 10px;
+    right: 80px; // 自定宽度, 合并代码需删除
+    html,
+    body,
+    #root {
+        height: 100%;
+    }
+    body {
+        background: #f0f2f5;
+        overflow: hidden;
+    }
+    #app-content-children-id {
+        margin: 20px;
+        background: #fff;
+        padding: 20px;
+        height: calc(100% - 40px);
+        box-sizing: border-box;
+        overflow-y: scroll;
+    }
+}
+
+.anticon-close-circle {
+    cursor: pointer;
+    color: #ccc;
+    transition: color 0.3s;
+    font-size: 12px;
+}
+
+#app-content-children-id {
+    overflow: auto;
+}
+
+.anticon-close-circle:hover {
+    color: #999;
+}
+
+.anticon-close-circle:active {
+    color: #666;
+}
+
+.ant-dropdown-trigger {
+    cursor: pointer;
+}
+
+//增加自定义的slider
+.ant-slider-theme-thin {
+    .ant-slider-rail,
+    .ant-slider-track,
+    .ant-slider-step {
+        height: 2px;
+    }
+    .ant-slider-handle {
+        margin-top: -6px
+    }
+}
+
+.ant-tag-theme-thin {
+    &.ant-tag-checkable-checked {
+        border: none;
+        color: #333;
+        line-height: 22px;
+        background: fadeout(@primary-color, 70%);
+    }
+}
