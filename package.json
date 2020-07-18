@@ -10,7 +10,7 @@
 		"history": "^4.7.2",
 		"js-cookie": "^2.2.0",
 		"lazy-load-component": "^1.1.5",
-		"lodash": "^4.17.5",
+		"lodash": "^4.17.19",
 		"numeral": "^2.0.6",
 		"prop-types": "^15.6.2",
 		"qs": "^6.5.2",
